@@ -1,0 +1,20 @@
+{
+	"name": "everyday",
+	"private": true,
+	"version": "1.0.0",
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"packageManager": "yarn@1.22.17",
+	"devDependencies": {},
+	"scripts": {
+		"dev": "turbo run dev --parallel",
+		"lint": "turbo run lint",
+		"format": "turbo run format",
+		"typecheck": "turbo run typecheck"
+	}
+}

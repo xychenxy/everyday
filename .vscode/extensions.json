@@ -1,0 +1,14 @@
+{
+	"recommendations": [
+		"esbenp.prettier-vscode",
+		"dbaeumer.vscode-eslint",
+		"wallabyjs.wallaby-vscode",
+		"styled-components.vscode-styled-components",
+		"arcanis.vscode-zipfs",
+		"editorconfig.editorconfig",
+		"wallabyjs.quokka-vscode",
+		"eamodio.gitlens",
+		"gitlab.gitlab-workflow",
+		"formulahendry.auto-rename-tag"
+	]
+}
