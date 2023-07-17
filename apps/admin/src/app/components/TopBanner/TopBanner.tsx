@@ -1,36 +1,12 @@
-import styled, { css } from "styled-components";
-
-import { Typography } from "@/app/components/Elements/Typography";
-
-const StyledHeading = styled(Typography)<{ inverted: boolean }>(
-	({ inverted, theme: { color } }) => css`
-		color: ${inverted ? color.white : color.primaryText};
-	`
-);
-
-const Container = styled.div<{ src?: string }>(
-	({ src, theme: { color } }) => css`
-		width: 100%;
-		display: flex;
-		position: relative;
-		justify-content: center;
-		align-items: center;
-		background: ${src
-			? `url(${src}) no-repeat 50%`
-			: color.topBannerBackground};
-		background-position: center;
-		background-size: cover;
-		height: 240px;
-	`
-);
+import { Box, Text } from "@/app/styles/components";
+import { container } from "./TopBanner.css";
 
 type TopBannerProps = {
 	title?: string;
-	photoUrl?: string;
 };
 
-export const TopBanner = ({ photoUrl, title }: TopBannerProps) => (
-	<Container src={photoUrl}>
-		{title && <StyledHeading inverted={!!photoUrl}>{title}</StyledHeading>}
-	</Container>
+export const TopBanner = ({ title }: TopBannerProps) => (
+	<Box className={container}>
+		{title && <Text kind="heading2">{title}</Text>}
+	</Box>
 );

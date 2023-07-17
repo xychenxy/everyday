@@ -1,44 +1,19 @@
 "use client";
 import * as React from "react";
-import styled from "styled-components";
-
-import { Header, HeaderComponent } from "@/app/components/PageLayout/Header";
-
-const Container = styled.div`
-	min-height: calc(100vh - 200px);
-`;
+import { container } from "./PageTemplate.css";
+import { Header } from "@/app/components/PageLayout/Header";
+import { Box } from "@/app/styles/components";
 
 type PageTemplateProps = {
-	type?: "default" | "sticky-header" | "basic";
 	children: React.ReactNode;
 };
 
-export const PageTemplate: React.FC<PageTemplateProps> = ({
-	type = "default",
-	children,
-}) => {
-	// if (type === "basic") {
-	// 	return (
-	// 		<>
-	// 			<HeaderComponent logoOnly />
-	// 			<Container>{children}</Container>
-	// 		</>
-	// 	);
-	// }
-
-	// if (type === "sticky-header") {
-	// 	return (
-	// 		<>
-	// 			<Header sticky />
-	// 			<Container>{children}</Container>
-	// 		</>
-	// 	);
-	// }
-
+export const PageTemplate: React.FC<PageTemplateProps> = ({ children }) => {
 	return (
 		<>
 			<Header />
-			<Container>{children}</Container>
+			<div className={container}>{children}</div>
+			<Box padding={"extraLoose"} />
 		</>
 	);
 };

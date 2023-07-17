@@ -1,3 +1,6 @@
+const { createVanillaExtractPlugin } = require("@vanilla-extract/next-plugin");
+const withVanillaExtract = createVanillaExtractPlugin();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	transpilePackages: ["ui"],
@@ -12,6 +15,17 @@ const nextConfig = {
 		});
 		return config;
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "images.pexels.com",
+				port: "",
+				pathname: "/photos/**",
+			},
+		],
+		unoptimized: true,
+	},
 };
 
-module.exports = nextConfig;
+module.exports = withVanillaExtract(nextConfig);

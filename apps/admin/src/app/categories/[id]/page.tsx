@@ -1,5 +1,4 @@
 "use client";
-import styled from "styled-components";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import { useFetchRestaurantsByCategory } from "../../api/hooks";
@@ -10,69 +9,45 @@ import {
 } from "../../components/RestaurantCard";
 import { TopBanner } from "../../components/TopBanner";
 import { categories } from "../../stub/categories";
-import sushi from "../../assets/images/sushi.svg";
 import { Restaurant } from "@/app/type";
 import { ErrorBlock } from "../../components/ErrorBlock";
-
-const Breadcrumb = styled.div`
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-	a,
-	p {
-		color: #7b7b7b;
-		text-transform: lowercase;
-	}
-`;
-
-const StyledContainer = styled.div`
-	grid-template-columns: repeat(auto-fill, minmax(356px, 1fr));
-	gap: 24px;
-	display: grid;
-	padding-bottom: 5rem;
-`;
+import { Box, Text } from "@/app/styles/components";
+import { categoryContainer } from "../page.css";
 
 const CategoryDetailPage = () => {
 	const router = useRouter();
-
 	const { id } = useParams();
-
 	const { restaurants, status } = useFetchRestaurantsByCategory(id);
-
 	const category = categories.find((cat) => cat.id === id);
 
 	return (
 		<PageTemplate>
-			<TopBanner
-				title={category?.title || "Oops!"}
-				photoUrl={category?.photoUrl}
-			/>
+			<TopBanner title={category?.title || "Oops!"} />
 			<div className="container">
-				<Breadcrumb>
-					<p
-						style={{
-							display: "inline-block",
-							textDecoration: "underline",
-						}}
+				<Box padding={"extraLoose"}>
+					<Text
+						display={"inline-block"}
+						textDecoration={"underline"}
+						paddingRight={"tight"}
 					>
 						<Link href="/categories">categories</Link>
-					</p>{" "}
-					/{" "}
-					<p style={{ display: "inline", fontWeight: "lighter" }}>
+					</Text>
+					/
+					<Text display={"inline"} paddingLeft={"tight"}>
 						{category?.title.toLowerCase()}
-					</p>
-				</Breadcrumb>
+					</Text>
+				</Box>
 				{status === "success" && restaurants.length <= 0 && (
 					<ErrorBlock
 						body="It seems that there are no restaurants in this category yet. Try to come back later?"
 						title="This is not the food you’re looking for."
-						image={<img alt="no restaurants found" src={sushi} />}
 						buttonText="See all restaurants"
 						onButtonClick={() => {
 							router.push("/categories");
 						}}
 					/>
 				)}
-				<StyledContainer>
+				<div className={categoryContainer}>
 					{status === "loading"
 						? Array.from(Array(3)).map((_, index) => (
 								<RestaurantCardSkeleton key={index} />
@@ -90,7 +65,7 @@ const CategoryDetailPage = () => {
 									/>
 								)
 						  )}
-				</StyledContainer>
+				</div>
 			</div>
 		</PageTemplate>
 	);

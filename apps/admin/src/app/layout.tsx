@@ -1,11 +1,14 @@
 "use client";
-import { ThemeProvider } from "styled-components";
-import { lightTheme } from "./styles/theme";
-import { GlobalStyle } from "./styles/GlobalStyle";
+import "@/app/styles/theme/reset.css";
 import { Provider as StoreProvider } from "react-redux";
 import { store } from "@/app/app-state";
+import { Montserrat } from "next/font/google";
 
-import StyledComponentsRegistry from "./lib/registry";
+const montserrat = Montserrat({
+	subsets: ["latin"],
+	display: "swap",
+	weight: ["400", "500", "600", "700"],
+});
 
 export default function RootLayout({
 	children,
@@ -13,17 +16,10 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" className={montserrat.className}>
 			<body>
-				<div id="modal" />
-				<StoreProvider store={store}>
-					<StyledComponentsRegistry>
-						<ThemeProvider theme={lightTheme}>
-							<GlobalStyle />
-							{children}
-						</ThemeProvider>
-					</StyledComponentsRegistry>
-				</StoreProvider>
+				<div id="modal"></div>
+				<StoreProvider store={store}>{children}</StoreProvider>
 			</body>
 		</html>
 	);

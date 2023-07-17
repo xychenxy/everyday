@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import styled, { css } from "styled-components";
 import { PageTemplate } from "@/app/components/PageLayout/Templates";
 import { useFetchRestaurant } from "../../api/hooks";
 import { useAppDispatch, useAppSelector } from "../../app-state";
@@ -13,41 +12,12 @@ import {
 	selectCartItems,
 } from "../../app-state/cart";
 import { TopBanner } from "../../components/TopBanner";
-import { Typography } from "@/app/components/Elements/Typography";
-import { Badge } from "@/app/components/Elements/Badge";
 import { Review } from "../../components/Review";
-import { AnimatedIllustration } from "../../components/AnimatedIllustration";
 import { ErrorBlock } from "../../components/ErrorBlock";
-import { Spinner } from "@/app/components/Elements/Spinner";
-
+import { detailContainer, menucontainer } from "../page.css";
+import { Box, Text, Badge } from "@/app/styles/components";
 import { FoodItemModal } from "./components/FoodItemModal";
 import { FoodSection } from "./components/FooSection";
-
-const DetailSection = styled.div(
-	({ theme: { color, spacing } }) => css`
-		padding-top: 2rem !important;
-		padding-bottom: 2rem !important;
-		background: ${color.restaurantDetailBackground};
-		.review-text {
-			color: ${color.reviewText};
-			margin-bottom: ${spacing.m};
-		}
-	`
-);
-
-const MenuSection = styled.div(
-	({ theme: { color } }) => css`
-		padding-top: 3rem !important;
-		padding-bottom: 5rem !important;
-		background: ${color.menuSectionBackground};
-	`
-);
-
-const StyledBadge = styled(Badge)(
-	({ theme: { spacing } }) => css`
-		margin-right: ${spacing.s};
-	`
-);
 
 const RestaurantDetailPage = () => {
 	const router = useRouter();
@@ -65,11 +35,10 @@ const RestaurantDetailPage = () => {
 
 	if (status === "500") {
 		return (
-			<PageTemplate type="sticky-header">
+			<PageTemplate>
 				<ErrorBlock
 					title="Something went wrong!"
 					body="Our bad, something went wrong on our side."
-					image={<AnimatedIllustration animation="NotFound" />}
 					onButtonClick={retryRequest}
 					buttonText="Try again"
 				/>
@@ -79,11 +48,10 @@ const RestaurantDetailPage = () => {
 
 	if (status === "404") {
 		return (
-			<PageTemplate type="sticky-header">
+			<PageTemplate>
 				<ErrorBlock
 					title="We can't find this page"
 					body="This page doesn’t exist, keep looking."
-					image={<AnimatedIllustration animation="Error" />}
 					onButtonClick={() => router.push("/")}
 					buttonText="Home"
 				/>
@@ -92,21 +60,17 @@ const RestaurantDetailPage = () => {
 	}
 
 	if (status === "loading") {
-		return (
-			<PageTemplate type="sticky-header">
-				<Spinner />
-			</PageTemplate>
-		);
+		return <PageTemplate>loading</PageTemplate>;
 	}
 
 	if (!restaurant) {
 		return null;
 	}
 
-	const { menu, name, rating, specialty, photoUrl, categories } = restaurant;
+	const { menu, name, rating, specialty, categories } = restaurant;
 
 	return (
-		<PageTemplate type="sticky-header">
+		<PageTemplate>
 			<FoodItemModal
 				item={selectedItem}
 				cartItems={cartItems}
@@ -114,47 +78,45 @@ const RestaurantDetailPage = () => {
 				onItemSave={addItemToCart}
 				onItemRemove={clearItemFromCart}
 			/>
-			<TopBanner photoUrl={photoUrl} />
-			<DetailSection>
-				<div className="container">
-					<Typography>{name}</Typography>
-					<Typography>Specialties: {specialty}</Typography>
-					<Review rating={rating} />
-					<div>
-						{categories?.map((category) => (
-							<StyledBadge key={category} text={category} />
-						))}
-					</div>
-				</div>
-			</DetailSection>
-			<MenuSection>
-				<div className="container">
-					{menu.food && (
-						<FoodSection
-							title="To eat"
-							items={menu.food}
-							cartItems={cartItems}
-							onItemClick={setSelectedItem}
-						/>
-					)}
-					{menu.dessert && (
-						<FoodSection
-							title="Dessert"
-							items={menu.dessert}
-							cartItems={cartItems}
-							onItemClick={setSelectedItem}
-						/>
-					)}
-					{menu.drinks && (
-						<FoodSection
-							title="To drink"
-							items={menu.drinks}
-							cartItems={cartItems}
-							onItemClick={setSelectedItem}
-						/>
-					)}
-				</div>
-			</MenuSection>
+			<TopBanner title={name} />
+			<Box className={detailContainer}>
+				<Text kind="heading2" paddingBottom={"normal"}>
+					{name}
+				</Text>
+				<Text paddingBottom={"snug"}>Specialties: {specialty}</Text>
+				<Review rating={rating} />
+				<Box display={"flex"} gap={"tight"} paddingTop={"snug"}>
+					{categories?.map((category) => (
+						<Badge key={category}>{category}</Badge>
+					))}
+				</Box>
+			</Box>
+			<Box className={menucontainer}>
+				{menu.food && (
+					<FoodSection
+						title="To eat"
+						items={menu.food}
+						cartItems={cartItems}
+						onItemClick={setSelectedItem}
+					/>
+				)}
+				{menu.dessert && (
+					<FoodSection
+						title="Dessert"
+						items={menu.dessert}
+						cartItems={cartItems}
+						onItemClick={setSelectedItem}
+					/>
+				)}
+				{menu.drinks && (
+					<FoodSection
+						title="To drink"
+						items={menu.drinks}
+						cartItems={cartItems}
+						onItemClick={setSelectedItem}
+					/>
+				)}
+			</Box>
 		</PageTemplate>
 	);
 };

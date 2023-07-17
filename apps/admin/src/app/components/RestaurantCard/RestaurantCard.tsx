@@ -1,9 +1,17 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import styled, { css, useTheme } from "styled-components";
-
-import { Badge } from "@/app/components/Elements/Badge";
-import { Typography } from "@/app/components/Elements/Typography";
 import { Review } from "../Review";
+import { Badge, Box, Text } from "@/app/styles/components";
+import {
+	closeContainer,
+	closeText,
+	cardContainer,
+	content,
+	imageContainer,
+	imageContent,
+	newTag,
+	cardWrap,
+} from "./RestaurantCard.css";
+import Image from "next/image";
 
 type RestaurantCardProps = {
 	name: string;
@@ -15,147 +23,39 @@ type RestaurantCardProps = {
 	isLoading?: boolean;
 	isNew?: boolean;
 	onClick?: () => void;
-	className?: string;
 };
 
-const Container = styled.div(
-	({ theme: { borderRadius } }) => css`
-		cursor: pointer;
-		display: flex;
-		flex-direction: column;
-		border-radius: ${borderRadius.s};
-		width: 100%;
-		max-width: 500px;
-		&:hover {
-			opacity: 0.9;
-		}
-	`
-);
-
-const StyledContent = styled.div(
-	({ theme: { color } }) => css`
-		padding: 24px;
-		background: ${color.cardBackground};
-		border-radius: 0px 0px 8px 8px;
-		.review-text {
-			color: ${color.reviewText};
-		}
-	`
-);
-
-const NewTag = styled.span(
-	({
-		theme: {
-			color,
-			borderRadius,
-			typography: { fontSize, fontWeight },
-		},
-	}) => css`
-		position: absolute;
-		padding: 8px;
-		background: ${color.newRestaurantTag};
-		display: inline-block;
-		top: 0.5rem;
-		left: 0.5rem;
-		border-radius: ${borderRadius.s};
-		font-size: ${fontSize.heading4};
-		font-weight: ${fontWeight.bold};
-		z-index: 1;
-	`
-);
-
-const Closed = styled.div(
-	({ theme: { color } }) => css`
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		border-radius: 8px 8px 0px 0px;
-		background: rgba(0, 0, 0, 0.4);
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		text-align: center;
-		z-index: 1;
-		span {
-			color: ${color.white};
-			line-height: 210px;
-		}
-	`
-);
-
-const ImageContainer = styled.div`
-	position: relative;
-	display: flex;
-`;
-const RestaurantImage = styled.img<{ $isClosed: boolean }>`
-	height: 200px;
-	width: 100%;
-	border-radius: 8px 8px 0px 0px;
-	object-fit: cover;
-	filter: ${({ $isClosed }) => ($isClosed ? "grayscale(1)" : "none")};
-`;
-const Description = styled(Typography)`
-	margin-top: 8px;
-	margin-bottom: 24px;
-	margin: 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-`;
-
-const StyledBadge = styled(Badge)`
-	margin-top: 1.5rem;
-	margin-right: 0.5rem;
-`;
-
-const StyledHeading = styled(Typography)(
-	({
-		theme: {
-			spacing,
-			typography: { fontSize },
-		},
-	}) => css`
-		font-size: ${fontSize.heading4};
-		margin-bottom: ${spacing.xs};
-	`
-);
-
 export const RestaurantCardSkeleton = () => {
-	const { color } = useTheme();
 	return (
-		<SkeletonTheme
-			color={color.skeletonBase}
-			highlightColor={color.skeletonHighlight}
-		>
-			<Container data-testid="loading">
-				<Skeleton
-					height={200}
-					width="100%"
-					style={{ borderRadius: "4px 4px 0 0" }}
-				/>
-				<StyledContent>
-					<StyledHeading fontSize="heading2">
-						<Skeleton width="50%" />
-					</StyledHeading>
-					<Typography>
-						<Skeleton width="35%" />
-					</Typography>
-					<Description>
-						<Skeleton />
-					</Description>
-					<Typography type="span">
-						<Skeleton
-							width="25%"
-							height="23px"
-							style={{ marginTop: 24 }}
-						/>
-					</Typography>
-				</StyledContent>
-			</Container>
-		</SkeletonTheme>
+		<div className={cardWrap}>
+			<SkeletonTheme baseColor={"#E9E9E9"} highlightColor={"#F5F6F7"}>
+				<div>
+					<Skeleton
+						height={200}
+						width="100%"
+						style={{ borderRadius: "4px 4px 0 0" }}
+					/>
+					<div className={content}>
+						<Text fontSize="heading2">
+							<Skeleton width="50%" />
+						</Text>
+						<Text>
+							<Skeleton width="35%" />
+						</Text>
+						<Box>
+							<Skeleton />
+						</Box>
+						<Text>
+							<Skeleton
+								width="25%"
+								height="23px"
+								style={{ marginTop: 24 }}
+							/>
+						</Text>
+					</div>
+				</div>
+			</SkeletonTheme>
+		</div>
 	);
 };
 
@@ -168,7 +68,6 @@ export const RestaurantCard = ({
 	isLoading = false,
 	isNew = false,
 	categories,
-	className,
 	onClick,
 }: RestaurantCardProps) => {
 	if (isLoading) {
@@ -176,35 +75,39 @@ export const RestaurantCard = ({
 	}
 
 	return (
-		<Container
-			className={className}
-			data-testid="restaurant-card"
-			onClick={isClosed ? undefined : onClick}
-		>
-			{isNew && <NewTag>new</NewTag>}
-			<ImageContainer>
-				{isClosed && (
-					<Closed>
-						<Typography type="span">
-							This restaurant is closed.
-						</Typography>
-					</Closed>
-				)}
-				<RestaurantImage
-					$isClosed={isClosed}
-					loading="lazy"
-					src={photoUrl}
-					alt="restaurant"
-				/>
-			</ImageContainer>
-			<StyledContent>
-				<StyledHeading fontSize="heading2">{name}</StyledHeading>
-				<Review rating={rating} />
-				<Description fontWeight="regular">{specialty}</Description>
-				{categories?.map((category) => (
-					<StyledBadge key={category} text={category} />
-				))}
-			</StyledContent>
-		</Container>
+		<div className={cardContainer} onClick={isClosed ? undefined : onClick}>
+			<div className={cardWrap}>
+				{isNew && <div className={newTag}>new</div>}
+				<div className={imageContainer}>
+					{isClosed && (
+						<div className={closeContainer}>
+							<span className={closeText}>
+								This restaurant is closed.
+							</span>
+						</div>
+					)}
+					<Image
+						src={photoUrl}
+						alt="restaurant"
+						height={200}
+						width={400}
+						className={imageContent}
+						priority
+					/>
+				</div>
+				<div className={content}>
+					<Text fontSize="heading2" paddingBottom={"loose"}>
+						{name}
+					</Text>
+					<Review rating={rating} />
+					<Text paddingY={"normal"}>{specialty}</Text>
+					<Box display={"flex"} gap={"tight"}>
+						{categories?.map((category) => (
+							<Badge key={category}>{category}</Badge>
+						))}
+					</Box>
+				</div>
+			</div>
+		</div>
 	);
 };

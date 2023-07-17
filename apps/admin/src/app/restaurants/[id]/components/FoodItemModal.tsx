@@ -1,52 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
-import styled, { css } from "styled-components";
-
 import { CartItem } from "@/app/app-state/cart";
-import { toEuro } from "@/app/helpers";
-import { breakpoints } from "@/app/styles/breakpoints";
-import { Button } from "@/app/components/Elements/Button";
-import { Typography } from "@/app/components/Elements/Typography";
-import { Modal } from "@/app/components/Elements/Modal";
-
-const StyledBody = styled(Typography)`
-	margin: 0;
-	margin-top: 8px;
-`;
-
-const StyledButton = styled(Button)`
-	flex: 1;
-`;
-
-const ButtonsContainer = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	flex: 0.45;
-	margin-bottom: 1.5rem;
-	margin-right: 0;
-	@media ${breakpoints.M} {
-		margin-bottom: 0;
-		margin-right: 1.5rem;
-		justify-content: space-between;
-	}
-`;
-
-const TopContainer = styled.div(
-	({ theme: { color } }) => css`
-		padding: 2.5rem 1.5rem;
-		background: ${color.overlayHeader};
-		border-radius: 16px 16px 0px 0px;
-	`
-);
-
-const BottomContainer = styled.div`
-	padding: 1.5rem;
-	display: flex;
-	flex-direction: column;
-	@media ${breakpoints.M} {
-		flex-direction: row;
-	}
-`;
+import { toAud } from "@/app/helpers";
+import { Modal } from "@/app/components/Modal";
+import { Box, Text, Button } from "@/app/styles/components";
+import { actionContainer } from "../../FoodItemModal.css";
 
 type FoodItemModalProps = {
 	item?: CartItem;
@@ -87,34 +44,42 @@ export const FoodItemModal = ({
 		<Modal isOpen={!!item} onClose={onClose}>
 			{item && (
 				<div>
-					<TopContainer>
-						<Typography>{item.name}</Typography>
-						<StyledBody>{item.description}</StyledBody>
-					</TopContainer>
-					<BottomContainer>
-						<ButtonsContainer>
+					<Box paddingX={"extraLoose"}>
+						<Text kind="heading2" paddingBottom={"normal"}>
+							{item.name}
+						</Text>
+						<Text kind="label1">{item.description}</Text>
+					</Box>
+					<Box padding={"extraLoose"} className={actionContainer}>
+						<Box
+							display={"flex"}
+							justifyContent={"stretch"}
+							alignItems={"center"}
+						>
 							<Button
 								aria-label="decrease quantity by one"
-								round
-								clear
-								icon="minus"
 								onClick={() => setQuantity(quantity - 1)}
 								disabled={quantity <= 1}
-							/>
-							<Typography>{quantity}</Typography>
+							>
+								-
+							</Button>
+							<Text>{quantity}</Text>
 							<Button
 								aria-label="increase quantity by one"
-								round
-								clear
-								icon="plus"
 								onClick={() => setQuantity(quantity + 1)}
 								disabled={quantity >= 10}
-							/>
-						</ButtonsContainer>
-						<StyledButton aria-label="confirm" onClick={saveItem}>
-							add for {toEuro(item.price * quantity)}
-						</StyledButton>
-					</BottomContainer>
+							>
+								+
+							</Button>
+						</Box>
+						<Button
+							aria-label="confirm"
+							onClick={saveItem}
+							$appearance="filled"
+						>
+							add for {toAud(item.price * quantity)}
+						</Button>
+					</Box>
 				</div>
 			)}
 		</Modal>

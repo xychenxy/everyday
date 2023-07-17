@@ -2,15 +2,14 @@ import { useMemo } from "react";
 
 import { ShoppingCartItem } from "../ShoppingCartItem/ShoppingCartItem";
 import { CartItem } from "../../../app-state/cart";
-import { Typography } from "@/app/components/Elements/Typography";
-import { toEuro } from "../../../helpers";
+import { toAud } from "../../../helpers";
 
 import {
-	OrderSummaryContainer,
-	BottomContainer,
-	CartItemsContainer,
-	StyledHeading,
-} from "./OrderSummary.styles";
+	buttomContainer,
+	cartItemsContainer,
+	container,
+} from "./OrderSummary.css";
+import { Box, Text } from "@/app/styles/components";
 
 type OrderSummaryProps = {
 	cartItems: CartItem[];
@@ -25,27 +24,35 @@ export const OrderSummary = ({ cartItems }: OrderSummaryProps) => {
 		[cartItems]
 	);
 	return (
-		<>
-			<OrderSummaryContainer>
-				<StyledHeading fontSize="heading2" withMargin>
+		<div className={container}>
+			<Box
+				display={"flex"}
+				justifyContent={"center"}
+				alignItems={"center"}
+			>
+				<Text padding={"normal"} kind="heading2">
 					Your order
-				</StyledHeading>
-				<CartItemsContainer>
-					{cartItems.length ? (
-						cartItems.map((item) => (
-							<ShoppingCartItem key={item.id} item={item} />
-						))
-					) : (
-						<Typography>Your cart is empty.</Typography>
-					)}
-				</CartItemsContainer>
-				<BottomContainer>
-					<Typography>Total</Typography>
-					<StyledHeading fontSize="heading2">
-						{toEuro(totalPrice)}
-					</StyledHeading>
-				</BottomContainer>
-			</OrderSummaryContainer>
-		</>
+				</Text>
+			</Box>
+			<div className={cartItemsContainer}>
+				{cartItems.length ? (
+					cartItems.map((item) => (
+						<ShoppingCartItem key={item.id} item={item} />
+					))
+				) : (
+					<Box
+						display={"flex"}
+						justifyContent={"center"}
+						alignItems={"center"}
+					>
+						<Text>Your cart is empty.</Text>{" "}
+					</Box>
+				)}
+			</div>
+			<div className={buttomContainer}>
+				<Text>Total</Text>
+				<Text>{toAud(totalPrice)}</Text>
+			</div>
+		</div>
 	);
 };

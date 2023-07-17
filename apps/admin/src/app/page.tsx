@@ -1,12 +1,7 @@
 "use client";
 
-import { PageTemplate } from "@/app/components/PageLayout/Templates";
-import { HomePage } from "./Homepage/HomePage";
+import { HomePage } from "./components/Homepage/HomePage";
 
 export default function Home() {
-	return (
-		<PageTemplate>
-			<HomePage />
-		</PageTemplate>
-	);
+	return <HomePage />;
 }

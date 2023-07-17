@@ -1,5 +1,3 @@
-import styled, { css } from "styled-components";
-import useDarkMode from "use-dark-mode";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/app/app-state";
@@ -11,101 +9,19 @@ import {
 	selectCartVisibility,
 	toggleVisibilityAction,
 } from "@/app/app-state/cart";
-import { breakpoints } from "../../../styles/breakpoints";
 import { ShoppingCartMenu } from "../../ShoppingCartMenu";
-import { Button } from "@/app/components/Elements/Button";
-import { toEuro } from "@/app/helpers";
-import { Typography } from "@/app/components/Elements/Typography";
-import { Icon } from "@/app/components/Elements/Icon";
-import { Lemon, ShoppingCart } from "@/app/components/Elements/Icon/SVG";
-
-export const HeaderContainer = styled.div(
-	({ theme: { color } }) => css`
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		height: 56px;
-		border-bottom: 1px solid ${color.headerBorder};
-		top: 0;
-		left: 0;
-		position: "sticky";
-		background: ${color.headerBackground};
-		z-index: 2;
-		width: 100%;
-		padding: 0 1.5rem;
-
-		@media ${breakpoints.S} {
-			padding: 0 4rem;
-		}
-
-		@media ${breakpoints.M} {
-			position: relative;
-			height: 72px;
-		}
-	`
-);
-
-export const LogoContainer = styled(Link)`
-	padding-left: 1rem;
-`;
-
-export const OptionsContainer = styled.div`
-	width: 50%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-
-	.navigation-items {
-		display: none;
-	}
-
-	a {
-		margin-right: 0.5rem;
-	}
-
-	@media ${breakpoints.M} {
-		.navigation-items {
-			display: contents;
-		}
-		width: 80%;
-	}
-`;
-
-export const CartText = styled(Typography)(
-	({ theme: { color } }) => css`
-		display: none;
-		@media ${breakpoints.M} {
-			display: inline-block;
-			color: ${color.cartButtonText};
-			margin-right: 0.25rem;
-		}
-	`
-);
-
-export const CartTotal = styled(Typography)(
-	({ theme: { color } }) => css`
-		display: inline-block;
-		color: ${color.buttonText};
-	`
-);
-
-const ThemeToggle = () => {
-	const darkMode = useDarkMode(false);
-	return (
-		<Button
-			round
-			clear
-			aria-label={`turn on ${darkMode.value ? "light" : "dark"} mode`}
-			icon={darkMode.value ? "moon" : "sun"}
-			onClick={darkMode.toggle}
-		/>
-	);
-};
-
-const StyleButton = styled(Button)`
-	border: 1px solid black;
-`;
+import { Button } from "@/app/styles/components";
+import { toAud } from "@/app/helpers";
+import { Text } from "@/app/styles/components";
+import { Icon } from "@/app/styles/components/Icon";
+import { Lemon, ShoppingCart } from "@/app/styles/components/Icon/SVG";
+import {
+	headerContainer,
+	linkContainer,
+	optionsContainer,
+	navigationItems,
+	content,
+} from "./Header.css";
 
 type HeaderComponentProps = {
 	isCartVisible?: boolean;
@@ -121,55 +37,65 @@ type HeaderComponentProps = {
 export const HeaderComponent = ({
 	isCartVisible = false,
 	logoOnly = false,
-	sticky = false,
 	totalPrice = 0,
 	cartItems = [],
 	toggleCartVisibility = () => {},
 	goToCheckout = () => {},
 	saveItem = () => {},
 }: HeaderComponentProps) => (
-	<HeaderContainer data-testid="header">
-		<LogoContainer href="/" aria-label="go to home page">
-			<Icon IconSvg={Lemon} size="40px" />
-		</LogoContainer>
-		{!logoOnly && (
-			<>
-				<OptionsContainer>
-					<span className="navigation-items">
-						<ThemeToggle />
-						<Link href="/" tabIndex={-1}>
-							<Button clear>Home</Button>
-						</Link>
-						<Link href="/categories" tabIndex={-1}>
-							<Button clear>All restaurants</Button>
-						</Link>
-					</span>
-					<StyleButton
-						clear
-						aria-label="food cart"
-						onClick={toggleCartVisibility}
-					>
-						<Icon IconSvg={ShoppingCart} size="24px" />
+	<div className={headerContainer}>
+		<div className={content}>
+			<Link
+				href="/"
+				aria-label="go to home page"
+				className={linkContainer}
+			>
+				<Icon IconSvg={Lemon} size="40px" />
+			</Link>
 
-						{totalPrice > 0 && (
-							<>
-								<CartText>Order</CartText>
-								<CartTotal>{toEuro(totalPrice)}</CartTotal>
-							</>
-						)}
-					</StyleButton>
-				</OptionsContainer>
-				<ShoppingCartMenu
-					isOpen={isCartVisible}
-					onClose={toggleCartVisibility}
-					onGoToCheckoutClick={goToCheckout}
-					cartItems={cartItems}
-					totalPrice={totalPrice}
-					onItemChange={saveItem}
-				/>
-			</>
-		)}
-	</HeaderContainer>
+			{!logoOnly && (
+				<>
+					<div className={optionsContainer}>
+						<span className={navigationItems}>
+							<Link href="/" tabIndex={-1}>
+								<Button $appearance="outline">Home</Button>
+							</Link>
+							<Link href="/categories" tabIndex={-1}>
+								<Button $appearance="outline">
+									All restaurants
+								</Button>
+							</Link>
+						</span>
+						<Button
+							$appearance="outline"
+							aria-label="food cart"
+							onClick={toggleCartVisibility}
+						>
+							<Icon IconSvg={ShoppingCart} size="24px" />
+							{totalPrice > 0 && (
+								<>
+									<Text kind="label2" paddingX={"extraTight"}>
+										Order
+									</Text>
+									<Text kind="label2">
+										{toAud(totalPrice)}
+									</Text>
+								</>
+							)}
+						</Button>
+					</div>
+					<ShoppingCartMenu
+						isOpen={isCartVisible}
+						onClose={toggleCartVisibility}
+						onGoToCheckoutClick={goToCheckout}
+						cartItems={cartItems}
+						totalPrice={totalPrice}
+						onItemChange={saveItem}
+					/>
+				</>
+			)}
+		</div>
+	</div>
 );
 
 export const Header = ({ sticky }: { sticky?: boolean }) => {

@@ -1,0 +1,46 @@
+.sidebar-enter {
+	transform: translateX(100%);
+}
+.sidebar-enter-active {
+	transform: translateX(0);
+	transition: transform 300ms;
+}
+.sidebar-exit {
+	transform: translateX(0);
+}
+.sidebar-exit-active {
+	transform: translateX(100%);
+	transition: transform 300ms;
+}
+
+@media screen and (min-width: 768px) {
+	.sidebar-enter {
+		transform: translateX(100%);
+	}
+	.sidebar-enter-active {
+		transform: translateX(0);
+		transition: transform 300ms;
+	}
+	.sidebar-exit {
+		transform: translateX(0);
+	}
+	.sidebar-exit-active {
+		transform: translateX(100%);
+		transition: transform 300ms;
+	}
+}
+
+.backdrop-enter {
+	opacity: 0;
+}
+.backdrop-enter-active {
+	opacity: 1;
+	transition: opacity 300ms;
+}
+.backdrop-exit {
+	opacity: 1;
+}
+.backdrop-exit-active {
+	opacity: 0;
+	transition: opacity 300ms;
+}

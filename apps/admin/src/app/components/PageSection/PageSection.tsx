@@ -1,8 +1,6 @@
 import * as React from "react";
-import styled from "styled-components";
-
-import { Button } from "@/app/components/Elements/Button";
-import { Typography } from "@/app/components/Elements/Typography";
+import { Text, Stack, Button, Box } from "@/app/styles/components";
+import { container } from "./PageSection.css";
 
 type PageSectionProps = {
 	title: string;
@@ -11,37 +9,24 @@ type PageSectionProps = {
 	children: React.ReactNode;
 };
 
-const Container = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	padding: 1rem 0;
-	position: relative;
-	padding-left: 1rem;
-`;
-const TopContainer = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 1.5rem;
-`;
-
 export const PageSection: React.FC<PageSectionProps> = ({
 	title,
 	topButtonLabel,
 	onTopButtonClick,
 	children,
 }) => (
-	<Container className="container-desktop">
-		<TopContainer>
-			<Typography fontSize="heading2">{title}</Typography>
+	<Box className={container}>
+		<Stack
+			$orientation="horizontal"
+			$alignment="center"
+			$spacing="spaceBetween"
+			paddingBottom={"loose"}
+		>
+			<Text kind="heading2">{title}</Text>
 			{topButtonLabel && (
-				<Button clear onClick={onTopButtonClick}>
-					{topButtonLabel}
-				</Button>
+				<Button onClick={onTopButtonClick}>{topButtonLabel}</Button>
 			)}
-		</TopContainer>
+		</Stack>
 		{children}
-	</Container>
+	</Box>
 );

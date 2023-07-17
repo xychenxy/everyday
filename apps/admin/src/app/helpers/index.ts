@@ -1,5 +1,5 @@
-export const toEuro = (number: number) =>
-  number.toLocaleString(undefined, {
-    style: 'currency',
-    currency: 'EUR',
-  })
+export const toAud = (number: number) =>
+	number.toLocaleString(undefined, {
+		style: "currency",
+		currency: "AUD",
+	});

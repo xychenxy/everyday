@@ -1,49 +1,6 @@
-import styled, { css } from "styled-components";
-
-import { breakpoints } from "@/app/styles/breakpoints";
-import { Typography } from "@/app/components/Elements/Typography";
-
-const OuterBar = styled.div(
-	({ theme: { color, borderRadius } }) => css`
-		height: 4px;
-		border-radius: ${borderRadius.xs};
-		width: 100%;
-		background: ${color.stepsIndicatorOuterBar};
-	`
-);
-const InnerBar = styled.div<{ progress: string }>(
-	({ progress, theme: { color, borderRadius } }) => css`
-		background: ${color.stepsIndicatorInnerBar};
-		width: ${progress};
-		border-radius: ${borderRadius.xs};
-		height: 4px;
-		transition: width 0.5s ease-in-out;
-	`
-);
-
-const TitleSection = styled.div(
-	({ theme: { spacing } }) => css`
-		display: flex;
-		justify-content: flex-start;
-		flex-direction: column;
-		margin-bottom: ${spacing.xs};
-
-		span {
-			margin-top: ${spacing.xs};
-		}
-
-		@media ${breakpoints.M} {
-			margin-bottom: ${spacing.s};
-			align-items: center;
-			justify-content: space-between;
-			flex-direction: row;
-
-			span {
-				margin-top: 0;
-			}
-		}
-	`
-);
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { Box, Text } from "@/app/styles/components";
+import { innerbar, outerbar, progressVar } from "./MultiStepForm.css";
 
 type StepIndicatorProps = {
 	title: string;
@@ -59,15 +16,23 @@ export const StepIndicator = ({
 	const progress = `${(currentStep / amountOfSteps) * 100}%`;
 	return (
 		<div style={{ marginBottom: "2rem" }}>
-			<TitleSection>
-				<Typography>{title}</Typography>
-				<Typography>
+			<Box
+				display={"flex"}
+				justifyContent={"space-between"}
+				alignItems={"center"}
+				paddingBottom={"normal"}
+			>
+				<Text>{title}</Text>
+				<Text>
 					Step {currentStep} of {amountOfSteps}
-				</Typography>
-			</TitleSection>
-			<OuterBar>
-				<InnerBar progress={progress} />
-			</OuterBar>
+				</Text>
+			</Box>
+			<div className={outerbar}>
+				<div
+					className={innerbar}
+					style={assignInlineVars({ [progressVar]: progress })}
+				/>
+			</div>
 		</div>
 	);
 };

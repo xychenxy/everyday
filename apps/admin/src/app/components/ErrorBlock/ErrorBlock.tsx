@@ -1,32 +1,8 @@
 import * as React from "react";
-import styled, { css } from "styled-components";
-
-import { Button } from "@/app/components/Elements/Button";
-import { Typography } from "@/app/components/Elements/Typography";
-
-const ErrorContainer = styled.div(
-	({ theme: { spacing } }) => css`
-		margin: 0 auto;
-		padding: ${spacing.l} 0;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-	`
-);
-
-const ImageContainer = styled.div(
-	({ theme: { spacing } }) => css`
-		text-align: center;
-		margin-top: ${spacing.m};
-		display: flex;
-		justify-content: center;
-		width: 100%;
-	`
-);
+import { Box, Button, Text } from "@/app/styles/components";
 
 type ErrorBlockProps = {
 	title: string;
-	image: React.ReactNode;
 	body: string;
 	buttonText: string;
 	onButtonClick: () => void;
@@ -34,15 +10,20 @@ type ErrorBlockProps = {
 
 export const ErrorBlock = ({
 	title,
-	image,
 	body,
 	buttonText,
 	onButtonClick,
 }: ErrorBlockProps) => (
-	<ErrorContainer>
-		<Typography fontSize="heading2">{title}</Typography>
-		<ImageContainer>{image}</ImageContainer>
-		<Typography>{body}</Typography>
-		<Button onClick={onButtonClick}>{buttonText}</Button>
-	</ErrorContainer>
+	<Box
+		display={"flex"}
+		alignItems={"center"}
+		flexDirection={"column"}
+		paddingY={"extraLoose"}
+	>
+		<Text fontSize="heading2">{title}</Text>
+		<Text padding={"extraLoose"}>{body}</Text>
+		<Button $appearance="filled" onClick={onButtonClick}>
+			{buttonText}
+		</Button>
+	</Box>
 );

@@ -2,8 +2,7 @@ import { saveOrderAction } from "@/app/app-state/order";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/app/app-state";
 import { clearCartAction, selectCartItems } from "@/app/app-state/cart";
-import { Button } from "@/app/components/Elements/Button";
-import { Input } from "@/app/components/Elements/Input";
+import { Box, Button, Input } from "@/app/styles/components";
 
 type DeliveryDetailsProps = {
 	setForm: () => {};
@@ -29,6 +28,7 @@ export const DeliveryDetails = ({
 	const { previous } = navigation;
 
 	const onCompleteOrder = () => {
+		if (cartItems.length === 0) return;
 		dispatch(saveOrderAction(cartItems));
 		dispatch(clearCartAction());
 		router.push("/success");
@@ -57,17 +57,18 @@ export const DeliveryDetails = ({
 				value={city}
 				onChange={setForm}
 			/>
-			<div
-				style={{
-					display: "flex",
-					justifyContent: "space-between",
-				}}
+			<Box
+				display={"flex"}
+				justifyContent={"space-between"}
+				paddingTop={"extraLoose"}
 			>
-				<Button clear onClick={previous}>
+				<Button $appearance="filled" onClick={previous}>
 					Previous
 				</Button>
-				<Button onClick={onCompleteOrder}>Complete order</Button>
-			</div>
+				<Button $appearance="filled" onClick={onCompleteOrder}>
+					Complete order
+				</Button>
+			</Box>
 		</div>
 	);
 };

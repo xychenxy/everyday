@@ -1,12 +1,4 @@
-import styled from "styled-components";
-
-import { Typography } from "../Elements/Typography";
-
-const Wrapper = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-`;
+import { Box, Text } from "@/app/styles/components";
 
 const getReview = (rating?: number) => {
 	if (!rating) {
@@ -31,7 +23,7 @@ type ReviewProps = {
 };
 
 export const Review = ({ rating }: ReviewProps) => (
-	<Wrapper>
-		<Typography>{getReview(rating)}</Typography>
-	</Wrapper>
+	<Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
+		<Text>{getReview(rating)}</Text>
+	</Box>
 );

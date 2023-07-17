@@ -1,19 +1,15 @@
-import styled, { css } from "styled-components";
-
-import { Button } from "@/app/components/Elements/Button";
-import { Input } from "@/app/components/Elements/Input";
-import { Typography } from "@/app/components/Elements/Typography";
-
-const DisclaimerText = styled(Typography)(
-	({ theme: { spacing } }) => css`
-		margin-bottom: ${spacing.m};
-	`
-);
+import { Box, Button, Text, Input } from "@/app/styles/components";
 
 export const ContactDetails = ({ setForm, formData, navigation }: any) => {
 	const { firstName, lastName, email, phone } = formData;
-
 	const { next } = navigation;
+
+	const hanldeNext = () => {
+		// todo: do some validation here
+		if (firstName != null && firstName.trim() != "") {
+			next();
+		}
+	};
 
 	return (
 		<div className="form">
@@ -23,6 +19,7 @@ export const ContactDetails = ({ setForm, formData, navigation }: any) => {
 				name="firstName"
 				value={firstName}
 				onChange={setForm}
+				required
 			/>
 			<Input
 				label="Last name"
@@ -47,12 +44,18 @@ export const ContactDetails = ({ setForm, formData, navigation }: any) => {
 				value={phone}
 				onChange={setForm}
 			/>
-			<DisclaimerText>
+			<Text paddingTop={"normal"}>
 				We’ll only use your phone to call you about your order
-			</DisclaimerText>
-			<div style={{ display: "flex", justifyContent: "flex-start" }}>
-				<Button onClick={next}>Next</Button>
-			</div>
+			</Text>
+			<Box
+				display={"flex"}
+				justifyContent={"flex-start"}
+				paddingTop={"extraLoose"}
+			>
+				<Button $appearance="filled" onClick={hanldeNext}>
+					Next
+				</Button>
+			</Box>
 		</div>
 	);
 };

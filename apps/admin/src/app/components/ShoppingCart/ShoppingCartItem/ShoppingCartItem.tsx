@@ -1,19 +1,20 @@
-import { CartItem } from '../../../app-state/cart'
-import { toEuro } from '../../../helpers'
+import { Text } from "@/app/styles/components";
+import { CartItem } from "../../../app-state/cart";
+import { toAud } from "../../../helpers";
 
-import { CartItemContainer, Quantity, Name, Price } from './ShoppingCartItem.styles'
+import { container } from "./ShoppingCartItem.css";
 
 type ShoppingCartItemProps = {
-  item: CartItem
-}
+	item: CartItem;
+};
 
 export const ShoppingCartItem = ({ item }: ShoppingCartItemProps) => {
-  const { name, price, quantity } = item
-  return (
-    <CartItemContainer>
-      <Quantity type="span">{quantity}</Quantity>
-      <Name type="span">{name}</Name>
-      <Price type="span">{toEuro(quantity * price)}</Price>
-    </CartItemContainer>
-  )
-}
+	const { name, price, quantity } = item;
+	return (
+		<div className={container}>
+			<Text>{quantity}</Text>
+			<Text>{name}</Text>
+			<Text>{toAud(quantity * price)}</Text>
+		</div>
+	);
+};

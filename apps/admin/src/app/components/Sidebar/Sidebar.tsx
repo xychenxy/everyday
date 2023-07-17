@@ -2,22 +2,23 @@ import * as React from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { useKey, useLockBodyScroll } from "../../hooks";
-import { Button } from "@/app/components/Elements/Button";
-import { Typography } from "@/app/components/Elements/Typography";
+import "./style.css";
 
 import {
-	SidebarContainer,
-	SidebarContent,
-	SidebarFooter,
-	TopBar,
-	Backdrop,
-} from "./Sidebar.styles";
+	sidebarContainer,
+	topBar,
+	sidbarContent,
+	sidebarfooter,
+	backdropContainer,
+} from "./Sidebar.css";
+import { Text, Button } from "@/app/styles/components";
 
 type SidebarProps = {
 	isOpen: boolean;
 	title: string;
 	onClose: () => void;
 	footer?: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -41,28 +42,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
 				unmountOnExit
 				nodeRef={contentRef}
 			>
-				<SidebarContainer data-testid="sidebar" ref={contentRef}>
-					<TopBar>
-						<Typography>{title}</Typography>
-						<Button
-							aria-label="close sidebar"
-							data-testid="sidebar-close-btn"
-							onClick={onClose}
-							clear
-							round
-							icon="cross"
-							iconSize={16}
-						/>
-					</TopBar>
-					<SidebarContent data-testid="sidebar-content">
-						{children}
-					</SidebarContent>
-					{footer && (
-						<SidebarFooter data-testid="sidebar-footer">
-							{footer}
-						</SidebarFooter>
-					)}
-				</SidebarContainer>
+				<div className={sidebarContainer} ref={contentRef}>
+					<div className={topBar}>
+						<Text>{title}</Text>
+						<Button onClick={onClose}>Close</Button>
+					</div>
+					<div className={sidbarContent}>{children}</div>
+					<div className={sidebarfooter}>{footer}</div>
+				</div>
 			</CSSTransition>
 
 			<CSSTransition
@@ -72,7 +59,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 				unmountOnExit
 				nodeRef={backdropRef}
 			>
-				<Backdrop data-testid="Sidebar-backdrop" onClick={onClose} />
+				<div className={backdropContainer} onClick={onClose} />
 			</CSSTransition>
 		</>
 	);

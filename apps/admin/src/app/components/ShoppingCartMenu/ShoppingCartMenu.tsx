@@ -1,64 +1,46 @@
-import styled from "styled-components";
-
 import { CartItem } from "../../app-state/cart";
-import { toEuro } from "../../helpers";
-import { Button } from "@/app/components/Elements/Button";
+import { toAud } from "../../helpers";
 
-import { Select } from "@/app/components/Elements/Select";
 import { Sidebar } from "../Sidebar";
-import { Typography } from "@/app/components/Elements/Typography";
-
-const FooterContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: space-between;
-`;
-
-const TotalSection = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 24px;
-`;
+import { Text, Button, Box, Badge } from "@/app/styles/components";
 
 const Footer = ({ onClick, totalPrice }: any) => (
-	<FooterContainer>
-		<TotalSection>
-			<Typography>Total</Typography>
-			<Typography>{toEuro(totalPrice)}</Typography>
-		</TotalSection>
-		<Button disabled={totalPrice === 0} large onClick={onClick}>
+	<div>
+		<Box
+			display={"flex"}
+			justifyContent={"space-between"}
+			paddingBottom={"normal"}
+		>
+			<Text>Total</Text>
+			<Text>{toAud(totalPrice)}</Text>
+		</Box>
+		<Button
+			$appearance="filled"
+			disabled={totalPrice === 0}
+			onClick={onClick}
+			$width="full"
+		>
 			Checkout
 		</Button>
-	</FooterContainer>
+	</div>
 );
 
-const MenuItemContainer = styled.div`
-	display: flex;
-	align-items: flex-start;
-	> div:first-of-type {
-		padding-right: 1rem;
-		flex: 0.75;
-	}
-
-	> div:last-of-type {
-		flex: 0.25;
-	}
-`;
-
 const ShoppingCartMenuItem = ({ item, onChange }: any) => (
-	<MenuItemContainer>
+	<Box
+		display={"flex"}
+		justifyContent={"space-between"}
+		alignItems={"flex-start"}
+		paddingBottom={"normal"}
+	>
 		<div>
-			<Typography fontWeight="medium">{item.name}</Typography>
-			<Typography>{item.description}</Typography>
-			<Typography>{toEuro(item.price * item.quantity)}</Typography>
+			<Text>{item.name}</Text>
+			<Text paddingY={"extraTight"}>{item.description}</Text>
+			<Text>{toAud(item.price * item.quantity)}</Text>
 		</div>
-		<Select
-			value={item.quantity}
-			onChange={onChange}
-			options={[...Array(11).keys()]}
-		/>
-	</MenuItemContainer>
+		<Text>
+			<Badge>{item.quantity}</Badge>
+		</Text>
+	</Box>
 );
 
 type ShoppingCartMenuProps = {
@@ -86,16 +68,14 @@ export const ShoppingCartMenu = ({
 			<Footer onClick={onGoToCheckoutClick} totalPrice={totalPrice} />
 		}
 	>
-		<div style={{ display: "grid", gap: "24px" }}>
-			{cartItems.map((item) => (
-				<ShoppingCartMenuItem
-					key={item.id}
-					item={item}
-					onChange={(quantity: number) =>
-						onItemChange({ ...item, quantity })
-					}
-				/>
-			))}
-		</div>
+		{cartItems.map((item) => (
+			<ShoppingCartMenuItem
+				key={item.id}
+				item={item}
+				onChange={(quantity: number) =>
+					onItemChange({ ...item, quantity })
+				}
+			/>
+		))}
 	</Sidebar>
 );
