@@ -5,7 +5,8 @@ export const container = style({
 });
 
 export const pageContainer = style({
-	minHeight: "100%",
+	overflow: "hidden",
+	height: "100vh",
 	display: "grid",
-	gridTemplateRows: "auto 1fr auto",
+	gridTemplateRows: "auto 1fr",
 });

@@ -6,13 +6,11 @@ export const headerContainer = style({
 	borderBottom: `1px solid ${vars.color.headerBorder}`,
 	top: 0,
 	left: 0,
-	position: "sticky",
 	background: vars.color.headerBackground,
 	width: "100%",
 
 	"@media": {
 		"screen and (min-width: 768px)": {
-			position: "relative",
 			height: "72px",
 		},
 	},

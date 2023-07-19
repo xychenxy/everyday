@@ -4,7 +4,7 @@ import { vars } from "@/app/styles/theme/theme.css";
 export const sidebarContainer = style({
 	background: vars.color.overlayBackground,
 	position: "fixed",
-	zIndex: 99,
+	zIndex: 999,
 	top: 0,
 	right: 0,
 	bottom: 0,
@@ -45,7 +45,7 @@ export const sidebarfooter = style({
 export const backdropContainer = style({
 	background: "rgba(0, 0, 0, 0.4)",
 	position: "fixed",
-	zIndex: 98,
+	zIndex: 998,
 	top: 0,
 	right: 0,
 	bottom: 0,
