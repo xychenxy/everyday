@@ -16,6 +16,6 @@ export const Portal: React.FC<Props> = ({ children, selector }) => {
 			ref.current = element;
 		}
 	}, [selector]);
-
+	//@ts-ignore
 	return ref.current ? createPortal(children, ref.current) : null;
 };

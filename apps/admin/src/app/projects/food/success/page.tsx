@@ -1,7 +1,7 @@
 "use client";
 import { LadiesSushi } from "@/app/assets/images";
-import { useAppSelector } from "../app-state";
-import { selectOrderItems } from "../app-state/order";
+import { useAppSelector } from "../../../app-state";
+import { selectOrderItems } from "../../../app-state/order";
 import { PageTemplate } from "@/app/components/PageLayout/Templates";
 import { TopBanner } from "@/app/components/TopBanner";
 import { OrderSummary } from "@/app/components/ShoppingCart";

@@ -1,7 +1,7 @@
 "use client";
 
-import { HomePage } from "./components/Homepage/HomePage";
+import { DashboardSidebar } from "./dashboard/DashboardPage";
 
 export default function Home() {
-	return <HomePage />;
+	return <DashboardSidebar />;
 }

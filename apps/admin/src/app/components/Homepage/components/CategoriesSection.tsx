@@ -17,7 +17,7 @@ export const CategoriesSection = ({ categories }: CategoriesSectionProps) => {
 		<PageSection
 			title="Categories"
 			topButtonLabel="View all categories"
-			onTopButtonClick={() => router.push("/categories")}
+			onTopButtonClick={() => router.push("/projects/food/categories")}
 		>
 			<Carousel
 				draggable={isMobile}
@@ -46,7 +46,10 @@ export const CategoriesSection = ({ categories }: CategoriesSectionProps) => {
 				itemClass={isMobile ? "carousel-item" : ""}
 			>
 				{categories.map((category) => (
-					<Link key={category.id} href={`/categories/${category.id}`}>
+					<Link
+						key={category.id}
+						href={`/projects/food/categories/${category.id}`}
+					>
 						<Category round {...category} />
 					</Link>
 				))}

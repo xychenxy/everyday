@@ -31,7 +31,7 @@ export const DeliveryDetails = ({
 		if (cartItems.length === 0) return;
 		dispatch(saveOrderAction(cartItems));
 		dispatch(clearCartAction());
-		router.push("/success");
+		router.push("/projects/food/success");
 	};
 
 	return (

@@ -1,16 +1,16 @@
 "use client";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
-import { useFetchRestaurantsByCategory } from "../../api/hooks";
+import { useFetchRestaurantsByCategory } from "../../../../api/hooks";
 import { PageTemplate } from "@/app/components/PageLayout/Templates";
 import {
 	RestaurantCard,
 	RestaurantCardSkeleton,
-} from "../../components/RestaurantCard";
-import { TopBanner } from "../../components/TopBanner";
-import { categories } from "../../stub/categories";
+} from "../../../../components/RestaurantCard";
+import { TopBanner } from "../../../../components/TopBanner";
+import { categories } from "../../../../stub/categories";
 import { Restaurant } from "@/app/type";
-import { ErrorBlock } from "../../components/ErrorBlock";
+import { ErrorBlock } from "../../../../components/ErrorBlock";
 import { Box, Text } from "@/app/styles/components";
 import { categoryContainer } from "../page.css";
 
@@ -30,7 +30,7 @@ const CategoryDetailPage = () => {
 						textDecoration={"underline"}
 						paddingRight={"tight"}
 					>
-						<Link href="/categories">categories</Link>
+						<Link href="/projects/food/categories">categories</Link>
 					</Text>
 					/
 					<Text display={"inline"} paddingLeft={"tight"}>
@@ -43,7 +43,7 @@ const CategoryDetailPage = () => {
 						title="This is not the food you’re looking for."
 						buttonText="See all restaurants"
 						onButtonClick={() => {
-							router.push("/categories");
+							router.push("/projects/food/categories");
 						}}
 					/>
 				)}
@@ -59,7 +59,7 @@ const CategoryDetailPage = () => {
 										{...restaurant}
 										onClick={() =>
 											router.push(
-												`/restaurants/${restaurant.id}`
+												`/projects/food/restaurants/${restaurant.id}`
 											)
 										}
 									/>

@@ -77,7 +77,7 @@ export const RestaurantsSection = () => {
 			restaurants={restaurants}
 			isLoading={status === "loading"}
 			onRestaurantClick={(id: string) =>
-				router.push(`/restaurants/${id}`)
+				router.push(`/projects/food/restaurants/${id}`)
 			}
 		/>
 	);

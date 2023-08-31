@@ -3,17 +3,17 @@
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { PageTemplate } from "@/app/components/PageLayout/Templates";
-import { useFetchRestaurant } from "../../api/hooks";
-import { useAppDispatch, useAppSelector } from "../../app-state";
+import { useFetchRestaurant } from "../../../../api/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app-state";
 import {
 	CartItem,
 	clearItemAction,
 	saveItemAction,
 	selectCartItems,
-} from "../../app-state/cart";
-import { TopBanner } from "../../components/TopBanner";
-import { Review } from "../../components/Review";
-import { ErrorBlock } from "../../components/ErrorBlock";
+} from "../../../../app-state/cart";
+import { TopBanner } from "../../../../components/TopBanner";
+import { Review } from "../../../../components/Review";
+import { ErrorBlock } from "../../../../components/ErrorBlock";
 import { detailContainer, menucontainer } from "../page.css";
 import { Box, Text, Badge } from "@/app/styles/components";
 import { FoodItemModal } from "./components/FoodItemModal";

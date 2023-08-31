@@ -17,7 +17,7 @@ export const AwardWinningSection = () => (
 			<Text kind="text" padding={"normal"}>
 				The best restaurants near you!
 			</Text>
-			<Link href="/categories">
+			<Link href="/projects/food/categories">
 				<Button $appearance="filled">Explore best restaurants</Button>
 			</Link>
 		</div>

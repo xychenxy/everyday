@@ -8,7 +8,7 @@ export const Banner = () => (
 		<Text kind="heading2" paddingBottom={"loose"}>
 			Hungry? find your next meal
 		</Text>
-		<Link href="/categories">
+		<Link href="/projects/food/categories">
 			<Button $appearance="filled">View all restaurants</Button>
 		</Link>
 		<Ladies

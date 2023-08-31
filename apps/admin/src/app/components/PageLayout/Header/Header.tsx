@@ -46,7 +46,7 @@ export const HeaderComponent = ({
 	<div className={headerContainer}>
 		<div className={content}>
 			<Link
-				href="/"
+				href="/projects/food"
 				aria-label="go to home page"
 				className={linkContainer}
 			>
@@ -58,9 +58,15 @@ export const HeaderComponent = ({
 					<div className={optionsContainer}>
 						<span className={navigationItems}>
 							<Link href="/" tabIndex={-1}>
+								<Button $appearance="outline">Dashboard</Button>
+							</Link>
+							<Link href="/projects/food" tabIndex={-1}>
 								<Button $appearance="outline">Home</Button>
 							</Link>
-							<Link href="/categories" tabIndex={-1}>
+							<Link
+								href="/projects/food/categories"
+								tabIndex={-1}
+							>
 								<Button $appearance="outline">
 									All restaurants
 								</Button>
@@ -110,7 +116,7 @@ export const Header = ({ sticky }: { sticky?: boolean }) => {
 
 	const goToCheckout = () => {
 		toggleCartVisibility();
-		router.push("/checkout");
+		router.push("/projects/food/checkout");
 	};
 
 	return (

@@ -3,6 +3,7 @@ import "@/app/styles/theme/reset.css";
 import { Provider as StoreProvider } from "react-redux";
 import { store } from "@/app/app-state";
 import { Montserrat } from "next/font/google";
+import "./globals.css";
 
 const montserrat = Montserrat({
 	subsets: ["latin"],
