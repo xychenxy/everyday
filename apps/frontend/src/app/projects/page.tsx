@@ -1,6 +1,6 @@
 "use client";
-import { DashboardTemplate } from "../components/PageLayout/Templates/DashboardTemplate";
-import restaurantProject from "../../app/assets/images/project-restaurant.png";
+import { DashboardTemplate } from "@/app/components/PageLayout/Templates/DashboardTemplate";
+import restaurantProject from "@/app/assets/images/project-restaurant.png";
 import dashboardProject from "@/app/assets/images/dashboard.png";
 import { objectKeys } from "ts-extras";
 import Image from "next/image";

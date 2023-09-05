@@ -5,7 +5,6 @@
 @layer base {
 	* {
 		padding: 0;
-		/* left: 0; */
 		box-sizing: border-box;
 	}
 	.sidebar-container {
