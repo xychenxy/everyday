@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	* {
+		padding: 0;
+		/* left: 0; */
+		box-sizing: border-box;
+	}
+	.sidebar-container {
+		@apply h-full w-[14rem] border transition-all duration-500 border-solid relative;
+	}
+	.sidebar {
+		@apply flex items-center rounded-lg p-3 cursor-pointer hover:bg-purple-200 transition-all duration-300;
+	}
+}
