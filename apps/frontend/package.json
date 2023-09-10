@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "next dev --port 5000",
     "build": "next build",
-	"start": "next start --port 5000",
+    "start": "next start --port 5000",
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.83.3",
+    "@react-three/fiber": "^8.14.1",
+    "@react-three/postprocessing": "^2.15.1",
     "@splinetool/loader": "^0.9.437",
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^0.9.437",
@@ -18,14 +21,23 @@
     "autoprefixer": "10.4.15",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "framer-motion": "^10.16.4",
+    "maath": "^0.7.0",
     "next": "13.4.19",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-simple-maps": "^3.0.0",
+    "react-tilt": "^1.0.2",
+    "react-vertical-timeline-component": "^3.6.0",
     "sharp": "^0.32.5",
     "tailwindcss": "3.3.3",
+    "three": "^0.156.1",
     "ts-extras": "^0.11.0",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@types/react-vertical-timeline-component": "^3.3.3"
   }
 }
